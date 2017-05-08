@@ -1,0 +1,25 @@
+{
+  "name": "gravityfield",
+  "version": "1.0.0",
+  "description": "This is a game Kevin Deems and Neel Bhagwat are going to create with Node.js",
+  "main": "./www/app.js",
+  "scripts": {
+    "test": "npm start"
+  },
+  "keywords": [
+    "Game",
+    "Gravity",
+    "Field",
+    "html5-css3-js"
+  ],
+  "author": "Kevin Deems and Neel Bhagwat",
+  "license": "ISC",
+  "dependencies": {
+    "console-remote-client": "^0.4.3",
+    "express": "^4.15.2",
+    "http": "0.0.0",
+    "path": "^0.12.7",
+    "pug": "^2.0.0-rc.1",
+    "socket.io": "^1.7.3"
+  }
+}
