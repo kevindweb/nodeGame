@@ -1,6 +1,15 @@
 $(document).ready(function(){
   var socket = io();
   var ourUsername;
+  var x = document.body;
+  function colorTest(){
+  	var num1 = Math.floor(Math.random()*256);
+  	var num2 = Math.floor(Math.random()*256);
+  	var num3 = Math.floor(Math.random()*256);
+  	x.style = "background-color: rgb("+num1+","+num2+","+num3+")";
+  	setTimeout(colorTest,2000);
+  }
+  colorTest();
   // show current player count
   socket.on('playerCount',function(data){
     $("#playerCount").html(data.count);

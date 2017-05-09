@@ -44,8 +44,8 @@ io.sockets.on('connection', function (socket) {
       var id;
       function getRandom(){
       	var myRandom = Math.random().toFixed(1);
-      	if(random.indexOf(myRandom==-1)){
-      		random.push(myRandom);
+      	if(randomList.indexOf(myRandom==-1)){
+      		randomList.push(myRandom);
       		id = myRandom;
       	}else{
       	getRandom();

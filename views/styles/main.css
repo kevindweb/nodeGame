@@ -9,6 +9,7 @@ body{
   max-height: 100%;
   min-height: 100%;
   overflow:hidden;
+  transition: background-color 2s ease-in-out;
 }
 .btn{
   background-color:black;
