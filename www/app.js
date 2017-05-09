@@ -35,6 +35,7 @@ io.sockets.on('connection', function (socket) {
       };
       return self;
     }
+    socket.username = 'John Doe';
     socket.emit('playerCount',{count:connections.length});
     socket.on('sendMessage',function(data){
       io.sockets.emit('newMessage',{message:data.message,userName:socket.username})
@@ -57,8 +58,16 @@ io.sockets.on('connection', function (socket) {
       playerList[socket.id] = player(socket.id);
       socket.emit('usernameCreated',{error:null,name:data.username});
     });
-    socket.on('playerData',function(){
-      rankList =
+    function findRank(){
+      // sort playerList array by total score
+      // return array of top ten players
+    }
+    socket.on('playerData',function(data){
+      if(rankList==null){
+        rankList = findRank();
+      } else if(data.score>rankList[9]){
+        rankList = findRank();
+      }
       socket.emit('playerData',{x:socket.xPos,y:socket.yPos,rankList:rankList})
     });
     socket.on('disconnect', function () {

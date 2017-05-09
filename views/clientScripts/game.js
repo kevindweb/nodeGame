@@ -18,6 +18,7 @@ $(document).ready(function(){
   socket.on('usernameCreated',function(data){
     if(!data.error){
       document.getElementById("btn-input").disabled=false;
+      document.getElementById("btn-input").placeholder="Enter msg";
       $("#smallTitle").html("GravField: "+data.name);
       document.getElementsByClassName("container")[0].style = 'opacity:0;';
       setTimeout(function(){

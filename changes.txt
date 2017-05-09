@@ -1,0 +1,4 @@
+Necessary changes
+  - we need to add a server case. When the server goes down, all games and sockets
+    end and the pages reload. This will allow all data to be refreshed, including
+    user placement, usernames, and overall user activity
