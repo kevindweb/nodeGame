@@ -2,3 +2,6 @@ Necessary changes
   - we need to add a server case. When the server goes down, all games and sockets
     end and the pages reload. This will allow all data to be refreshed, including
     user placement, usernames, and overall user activity
+  - rules modal - there is an logic issue with the panels - what needs to happen is
+    when one panel is open, and the player clicks elsewhere, the panel should close.
+    This happens sometimes, but not does not work every time. 

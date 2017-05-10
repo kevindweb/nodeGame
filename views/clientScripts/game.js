@@ -131,7 +131,40 @@ $(document).ready(function(){
     box2.appendChild(box3);
     box1.appendChild(box2);
   }
-  // modals for the message and rules buttons
+  // modal for the rules button
+  // dropdown animation onclick
+  $('.dropdown').on('show.bs.dropdown', function (e) {
+      $(this).find('.dropdown-menu').first().stop(true, true).slideDown();
+  });
+  // dropdown slide up after click
+  $('.dropdown').on('hide.bs.dropdown', function (e) {
+      $(this).find('.dropdown-menu').first().stop(true, true).slideUp();
+  });
+  $(".panel-heading").click(function(e){
+    $(e.target).addClass("notCollapse");
+  });
+  $(".notCollapse").click(function(e){
+    $("#"+e.target.id).removeClass("notCollapse");
+  });
+  $(document).click(function (event) {
+       var clickover = $(event.target);
+       var opened = false;
+       for(i=1;i<4;i++){
+         if($("#"+i).hasClass("notCollapse")){
+           opened = true;
+           break;
+         }
+       }
+       if (opened === true && !clickover.hasClass("notCollapse")) {
+           $(".notCollapse").click();
+           for(i=1;i<4;i++){
+             if($("#"+i).hasClass("notCollapse")){
+               $("#"+i).removeClass("notCollapse");
+             }
+           }
+       }
+  });
+  // modal for the message button
   $("#human").keydown(function(){
        if(document.getElementById("human").value!=55){
          var button = document.getElementById("submitMessage");
