@@ -16,10 +16,10 @@ window.createCanvasElement = function(){
   }
   colorTest();
   ctx = c.getContext('2d');
-  ctx.textAlign = "center";
-  ctx.font = "30px arcFont";
-  ctx.fillStyle = "red";
-  ctx.fillText("GravField",c.width/2,30);
+  // ctx.textAlign = "center";
+  // ctx.font = "30px arcFont";
+  // ctx.fillStyle = "red";
+  // ctx.fillText("GravField",c.width/2,30);
   function createStar(score){
     console.log('Player created');
   }

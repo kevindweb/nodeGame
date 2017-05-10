@@ -40,12 +40,26 @@ canvas{
     padding-bottom: 20px;
     padding-left: 20px;
     padding-right: 20px;
-    border-radius: 15px;
+    border-radius: 15px 15px 0px 0px;
+    border-bottom: solid black 2px;
     border-color:#d2d2d2;
     border-width: 5px;
     box-shadow:0 1px 0 #cfcfcf;
 }
-
+.loginAdditionals{
+  background-color: #EDEDED;
+  box-shadow:0 1px 0 #cfcfcf;
+  border-radius: 0px 0px 15px 15px;
+  border-color:#d2d2d2;
+  border-width: 5px;
+}
+.loginAdditionals .list-group-item{
+  transition: all .4s ease-in-out;
+}
+.loginAdditionals .list-group-item:hover{
+  background-color: black;
+  color: white;
+}
 h4 {
  border:0 solid #fff;
  border-bottom-width:1px;

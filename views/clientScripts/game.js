@@ -52,6 +52,17 @@ $(document).ready(function(){
       receiveOtherMessage(data.message,data.userName);
     }
   });
+  socket.on('emailSent',function(data){
+    if(!data.error){
+      $("#formName").val("");
+      $("#formEmail").val("");
+      $("#formMessage").val("");
+      $("#formMessage").attr("placeholder",data.res);
+      $("#human").val("");
+    } else{
+      $("#human").val(data.error);
+    }
+  });
   // end of socket listeners
   // assiging username
   $("#userName").keyup(function(e){
@@ -120,6 +131,35 @@ $(document).ready(function(){
     box2.appendChild(box3);
     box1.appendChild(box2);
   }
+  // modals for the message and rules buttons
+  $("#human").keydown(function(){
+       if(document.getElementById("human").value!=55){
+         var button = document.getElementById("submitMessage");
+         button.disabled = true;
+       } else{
+         var button = document.getElementById("submitMessage");
+         button.disabled = false;
+       }
+     });
+  $("#human").keyup(function(){
+     if(document.getElementById("human").value!=55){
+       var button = document.getElementById("submitMessage");
+       button.disabled = true;
+     } else{
+       var button = document.getElementById("submitMessage");
+       button.disabled = false;
+     }
+  });
+  $("#submitMessage").attr("disabled","disabled");
+  $("#submitMessage").click(function(e){
+     e.preventDefault();
+     message = {};
+     message.from = '"'+$("#formName").val()+'" <gravfieldgame@gmail.com>';
+     message.to = 'gravfieldgame@gmail.com';
+     message.subject = 'Regarding gravField';
+     message.html = '<h3>My name is:</h3><p>'+$("#formName").val()+'</p><br><h3>My message is:</h3><p>'+$("#formMessage").val()+'</p><br><h3>My email is:</h3><p>'+$("#formEmail").val()+'</p>';
+  	 socket.emit('sendEmail',message);
+  });
   // player dies, data is reset
   window.playerDeath = function(){
     $("#canvasElement").hide('slow', function(){ $("#canvasElement").remove();});

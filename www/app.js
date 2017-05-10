@@ -2,6 +2,8 @@ var express = require('express'),
     app = express(),
     path = require('path'),
     http = require('http'),
+    nodemailer = require('nodemailer'),
+    transporter = nodemailer.createTransport({service: 'gmail',auth: {user: 'gravfieldgame@gmail.com',pass: '!easy2Remember'}}),
     server = http.Server(app),
     viewPath = path.join(__dirname+'/../views'),
     jsPath = path.join(__dirname+'/../views/clientScripts'),
@@ -75,6 +77,19 @@ io.sockets.on('connection', function (socket) {
     });
     socket.on('disconnect', function () {
         connections.splice(connections.indexOf(socket),1);
+    });
+    // when a user wants to send email
+    socket.on('sendEmail',function(data){
+      // send mail with defined transport object
+      var mailOptions = data;
+      transporter.sendMail(mailOptions, (error, info) => {
+          if (error) {
+              console.log(error.message);
+              socket.emit('emailSent',{error:JSON.stringify(error)});
+          } else{
+            socket.emit('emailSent',{res:'Message was sent!'});
+          }
+      });
     });
     // sends a pitch black function to the sockets
     // every 60 seconds, the screen will go black for 4 seconds

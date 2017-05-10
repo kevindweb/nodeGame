@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="/styles/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
     <link rel="stylesheet" type="text/css" href="/styles/main.css"/>
     <link rel="stylesheet" type="text/css" href="/styles/chat.css"/>
     <title>GravField</title>
@@ -23,6 +24,10 @@
                     <a id="loginButton" class="btn btn-primary btn-md">login <i class="fa fa-sign-in"></i></a>
                 </span>
                 </div>
+              </div>
+              <div class="loginAdditionals list-group">
+                <a class="list-group-item" data-toggle="modal" data-target="#myMessageModal"><i class="fa fa-envelope-o"></i> Contact</a>
+                <a class="list-group-item" data-toggle="modal" data-target="#myRulesModal" style="border-radius: 0px 0px 15px 15px"><i class="fa fa-question-circle-o"></i> Rules</a>
               </div>
           </div>
         </div>
@@ -56,10 +61,64 @@
         </div>
       </div>
     </div>
+    <!-- Message Modal -->
+    <div class="modal fade" id="myMessageModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+       <div class="modal-dialog" role="document">
+          <div class="modal-content">
+             <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title text-left" id="myModalLabel">Message Form</h4>
+             </div>
+             <div class="modal-body">
+               <form class="form-horizontal" role="form" method="post" data-toggle="validator" id="mailForm">
+                 <div class="form-group">
+                   <button id="submitMessage" name="submit" type="submit" class="btn btn-primary">Send</button>
+                 </div>
+                 <div class="form-group">
+                   <label for="name" class="col-sm-2 control-label">Name</label>
+                   <div class="col-sm-10">
+                     <input type="text" class="form-control" id="formName" name="name" placeholder="First & Last Name" value="" required>
+                     <div class="help-block with-errors"></div>
+                   </div>
+                 </div>
+                 <div class="form-group">
+                   <label for="email" class="col-sm-2 control-label">Email</label>
+                   <div class="col-sm-10">
+                     <input type="email" class="form-control" id="formEmail" name="email" placeholder="example@domain.com" value="" required>
+                     <div class="help-block with-errors"></div>
+                   </div>
+                 </div>
+                 <div class="form-group">
+                   <label for="message" class="col-sm-2 control-label">Message</label>
+                   <div class="col-sm-10">
+                     <textarea class="form-control" rows="2" name="message" id="formMessage" required></textarea>
+                     <div class="help-block with-errors"></div>
+                   </div>
+                 </div>
+                 <div class="form-group">
+                   <label for="human" class="col-sm-2 control-label">22 + 33 = ?</label>
+                   <div class="col-sm-10">
+                     <input type="text" class="form-control" data-callback="" id="human" name="human" placeholder="Your Answer" required>
+                     <div class="help-block with-errors" id="humanError"></div>
+                   </div>
+                 </div>
+                 <br>
+                 <div class="form-group">
+                   <div class="col-sm-10 col-sm-offset-2">
+                     <!-- Will be used to display an alert to the user-->
+                   </div>
+                 </div>
+               </form>
+             </div>
+          </div>
+       </div>
+    </div>
     <script src="scripts/socket.io.min.js"></script>
     <script src="scripts/jquery.min.js"></script>
+    <script src="scripts/bootstrapScript.js"></script>
     <script src="scripts/game.js"></script>
     <script src="scripts/canvas.js"></script>
     <script src="scripts/chat.js"></script>
+    <script src="scripts/bootstrapValidator.js"></script>
   </body>
 </html>
