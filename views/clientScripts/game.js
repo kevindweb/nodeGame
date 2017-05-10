@@ -1,13 +1,17 @@
 $(document).ready(function(){
   var socket = io();
   var ourUsername;
+  var ourUserId;
+  var truthy = false;
   var x = document.body;
   function colorTest(){
   	var num1 = Math.floor(Math.random()*256);
   	var num2 = Math.floor(Math.random()*256);
   	var num3 = Math.floor(Math.random()*256);
   	x.style = "background-color: rgb("+num1+","+num2+","+num3+")";
-  	setTimeout(colorTest,2000);
+    if(!truthy){
+      setTimeout(colorTest,2000);
+    }
   }
   colorTest();
   // show current player count
@@ -20,10 +24,16 @@ $(document).ready(function(){
       document.getElementById("btn-input").disabled=false;
       document.getElementById("btn-input").placeholder="Enter msg";
       $("#smallTitle").html("GravField: "+data.name);
+      ourUserId = data.id;
+      window.ourUserId = ourUserId;
       document.getElementsByClassName("container")[0].style = 'opacity:0;';
       setTimeout(function(){
         document.getElementsByClassName("container")[0].style = 'display:none;';
-      },1000);
+      },300);
+      truthy = true;
+      setTimeout(function(){
+        window.createCanvasElement();
+      },301);
       return;
     } else{
       $("#userName").attr("placeholder",data.error);
@@ -56,6 +66,7 @@ $(document).ready(function(){
       $("#userName").attr("placeholder","real usrname pls");
     } else{
       ourUsername = value;
+      window.ourUsername = ourUsername;
       usernameCreate(value);
     }
   });
@@ -111,6 +122,7 @@ $(document).ready(function(){
   }
   // player dies, data is reset
   window.playerDeath = function(){
+    $("#canvasElement").hide('slow', function(){ $("#canvasElement").remove();});
     socket.emit('playerDeath');
   }
 });

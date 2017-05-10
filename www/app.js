@@ -1,7 +1,6 @@
 var express = require('express'),
     app = express(),
     path = require('path'),
-    pug = require('pug'),
     http = require('http'),
     server = http.Server(app),
     viewPath = path.join(__dirname+'/../views'),
@@ -12,8 +11,10 @@ var express = require('express'),
     io = require('socket.io')(server,{}),
     randomList=[],
     playerList = [],
+    truthy = false,
     connections=[];
 
+// initialize paths to scripts, fonts, and css
 app.set('views',viewPath);
 app.set('view engine','pug');
 app.use('/scripts',express.static(jsPath));
@@ -35,6 +36,7 @@ io.sockets.on('connection', function (socket) {
       };
       return self;
     }
+    // default username is John Doe
     socket.username = 'John Doe';
     socket.emit('playerCount',{count:connections.length});
     socket.on('sendMessage',function(data){
@@ -43,20 +45,21 @@ io.sockets.on('connection', function (socket) {
     socket.on('usernameCreate',function(data){
       socket.username = data.username;
       var id;
+
       function getRandom(){
-      	var myRandom = Math.random().toFixed(1);
+      	var myRandom = Math.random();
+        // if we already have this random id - choose another
       	if(randomList.indexOf(myRandom==-1)){
       		randomList.push(myRandom);
       		id = myRandom;
       	}else{
-      	getRandom();
-      	count++
+      	   getRandom();
       	}
       };
       getRandom();
       socket.id = id;
       playerList[socket.id] = player(socket.id);
-      socket.emit('usernameCreated',{error:null,name:data.username});
+      socket.emit('usernameCreated',{error:null,name:data.username,id:socket.id});
     });
     function findRank(){
       // sort playerList array by total score
@@ -73,4 +76,26 @@ io.sockets.on('connection', function (socket) {
     socket.on('disconnect', function () {
         connections.splice(connections.indexOf(socket),1);
     });
+    // sends a pitch black function to the sockets
+    // every 60 seconds, the screen will go black for 4 seconds
+    function emitPitchBlack(){
+      if(connections.length>1){
+        setTimeout(function(){
+          // after 60 seconds, send pitch black
+          io.sockets.emit('pitchBlack');
+          setTimeout(function(){
+            // wait until pitch black is over, then start
+            // timer again
+            emitPitchBlack();
+          },4000);
+        },60*1000);
+      } else{
+        setTimeout(function(){
+          // if there are not enough players online to
+          // make it worth while, wait another minute and try again
+          emitPitchBlack();
+        },60*1000);
+      }
+    }
+    emitPitchBlack();
 });

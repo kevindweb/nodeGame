@@ -11,6 +11,10 @@ body{
   overflow:hidden;
   transition: background-color 2s ease-in-out;
 }
+canvas{
+  transition: background-color 2s ease-in-out;
+  font-family: arcFont;
+}
 .btn{
   background-color:black;
   transition: background-color .3s ease-in-out;
@@ -21,7 +25,7 @@ body{
 }
 .container {
     padding: 25px;
-    transition: all .6s ease-in-out;
+    transition: all .3s ease-in-out;
 }
 #smallTitle{
   position:fixed;
@@ -59,6 +63,5 @@ h4 {
 @media only screen and (min-width:991px;){
   .container{
     max-width: 150px;
-
   }
 }
