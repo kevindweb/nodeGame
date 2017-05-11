@@ -4,7 +4,7 @@
 }
 body{
   font-family: arcFont;
-  margin: 0px;;
+  margin: 0px;
   padding: -5px;
   max-height: 100%;
   min-height: 100%;
@@ -26,6 +26,10 @@ canvas{
 .container {
     padding: 25px;
     transition: all .3s ease-in-out;
+}
+#chatHolder{
+  height: 10px;
+  width: 10px;
 }
 #smallTitle{
   position:fixed;
