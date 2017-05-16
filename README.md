@@ -1,17 +1,21 @@
 # gravField
-This project is an unfinished version of a multiplayer web game driven by with Node.js.
+Node.js Backend for Multiplayer Functionality - HTML5 Canvas Interaction - Socket.io to Hold it all together
 
-<img src="https://raw.githubusercontent.com/kevindweb/nodeGame/master/views/fontsAndImages/star.png" width=100 alt="gravFieldLogo">
-To view the application as of current standing, use these steps in your terminal to download and run the server for the first time... on mac - terminal (after cloning in github)
-  1. $cd 'pathToThisFolder'
-  2. $npm install (this will download all dependencies in the package.json)
-  3. after download, now run the application, use this command alone to start
-  4. $nodemon
-  5. go to 'localhost:8080' in your browser to view the homepage
+<img src="https://raw.githubusercontent.com/kevindweb/nodeGame/master/views/fontsAndImages/star.png" width=100 alt="gravFieldLogo"/>
 
-Requirements
+
+## Running Local 
+```
+cd 'pathToRootFolder'
+npm install (installs all dependencies for project)
+nodemon
+```
+Your local version of gravField should now be running on [localhost:5000](http://localhost:5000/).
+
+## Requirements for code visualization
   - node and npm terminal commands
   - nodemon terminal command for this folder
+
 
 
 
