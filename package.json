@@ -1,7 +1,7 @@
 {
   "name": "gravityfield",
-  "version": "1.0.0",
-  "description": "This is a game Kevin Deems and Neel Bhagwat are going to create with Node.js",
+  "version": "0.1.0",
+  "description": "This is a game Kevin Deems is creating with Node.js",
   "main": "./www/app.js",
   "scripts": {
     "test": "npm start",
@@ -22,10 +22,11 @@
     "socket.io": "^1.7.3"
   },
   "engines": {
-    "node": "4.0.0"
+    "node": "6.9.2",
+    "npm":"3.10.9"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/heroku/node-js-sample"
+    "url": "https://github.com/kevindweb/nodeGame"
   },
 }
