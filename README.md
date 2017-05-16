@@ -3,19 +3,21 @@
 
 <img src="https://raw.githubusercontent.com/kevindweb/nodeGame/master/views/fontsAndImages/star.png" width=100 alt="gravFieldLogo"/>
 
+## Downloading Global Variables
+
+[Download NodeJS](https://nodejs.org/en/download/)
+```
+# npm and node commands installed
+npm install -g nodemon
+```
 
 ## Running Local 
 ```
-cd 'pathToRootFolder'
-npm install //installs all necessary packages
+cd 'pathToFolder'
+npm install #installs all necessary packages
 nodemon
 ```
 Your local version of gravField should now be running on [localhost:5000](http://localhost:5000/).
-
-## Requirements for code visualization
-  - node and npm terminal commands
-  - nodemon terminal command for this folder
-
 
 
 
