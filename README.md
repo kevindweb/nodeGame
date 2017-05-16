@@ -7,7 +7,7 @@ Node.js Backend for Multiplayer Functionality - HTML5 Canvas Interaction - Socke
 ## Running Local 
 ```
 cd 'pathToRootFolder'
-npm install (installs all dependencies for project)
+npm install //installs all necessary packages
 nodemon
 ```
 Your local version of gravField should now be running on [localhost:5000](http://localhost:5000/).
