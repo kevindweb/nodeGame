@@ -1,5 +1,5 @@
 # gravField
-Node.js Backend for Multiplayer Functionality - HTML5 Canvas Interaction - Socket.io to Hold it all together
+[Node.js](http://nodejs.org/) Backend for Multiplayer Functionality - HTML5 Canvas Interaction - [Socket.io](https://socket.io/) to Hold it all together
 
 <img src="https://raw.githubusercontent.com/kevindweb/nodeGame/master/views/fontsAndImages/star.png" width=100 alt="gravFieldLogo"/>
 
