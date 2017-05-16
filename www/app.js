@@ -16,6 +16,7 @@ var express = require('express'),
     truthy = false,
     connections=[],
     countDown,
+    intervals,
     pitchBlackLength = 3000;
 
 // initialize paths to scripts, fonts, and css
@@ -31,7 +32,7 @@ app.get('/',function(req,res){
 
 //countDown until blackout
 function setTimerInterval(){
-  var intervals = setInterval(countDownTimer,1000);
+  intervals = setInterval(countDownTimer,1000);
 }
 function countDownTimer(){
   if(!countDown){
@@ -39,7 +40,7 @@ function countDownTimer(){
   } else{
     if(countDown=='1:00'){
       countDown = 59;
-    } else if(countDown<=0){
+    } else if(countDown==1){
       clearInterval(intervals);
       countDown = null;
       setTimeout(function(){
@@ -66,33 +67,32 @@ io.sockets.on('connection', function (socket) {
     // default username is John Doe
     socket.username = 'John Doe';
     socket.emit('playerCount',{count:connections.length});
-
     function findRank(){
       // sort playerList array by total score
       // return array of top ten players
     }
     // sends a pitch black function to the sockets
     // every 60 seconds, the screen will go black for 4 seconds
-    function emitPitchBlack(){
-      if(connections.length>1){
-        setTimeout(function(){
-          // after 60 seconds, send pitch black
-          io.sockets.emit('pitchBlack');
-          setTimeout(function(){
-            // wait until pitch black is over, then start
-            // timer again
-            emitPitchBlack();
-          },4000);
-        },60*1000);
-      } else{
-        setTimeout(function(){
-          // if there are not enough players online to
-          // make it worth while, wait another minute and try again
-          emitPitchBlack();
-        },60*1000);
-      }
-    }
-    emitPitchBlack();
+    // function emitPitchBlack(){
+    //   if(connections.length>1){
+    //     setTimeout(function(){
+    //       // after 60 seconds, send pitch black
+    //       io.sockets.emit('pitchBlack');
+    //       setTimeout(function(){
+    //         // wait until pitch black is over, then start
+    //         // timer again
+    //         emitPitchBlack();
+    //       },4000);
+    //     },60*1000);
+    //   } else{
+    //     setTimeout(function(){
+    //       // if there are not enough players online to
+    //       // make it worth while, wait another minute and try again
+    //       emitPitchBlack();
+    //     },60*1000);
+    //   }
+    // }
+    // emitPitchBlack();
     // all socket listeners
     socket.on('sendMessage',function(data){
       io.sockets.emit('newMessage',{message:data.message,userName:socket.username})
@@ -114,6 +114,7 @@ io.sockets.on('connection', function (socket) {
       socket.id = id;
       playerList[socket.id] = player(socket.id);
       socket.emit('usernameCreated',{error:null,name:data.username,id:socket.id});
+      socket.emit('countDownCount',{time:countDown});
     });
     // when a user wants to send email
     socket.on('sendEmail',function(data){
@@ -141,7 +142,13 @@ io.sockets.on('connection', function (socket) {
     socket.on('playerDeath',function(){
       playerList.splice(playerList.indexOf(socket.id),1);
     });
+    socket.on('playAgain',function(data){
+      playerList[socket.id] = player(socket.id);
+    });
     socket.on('disconnect', function (){
         connections.splice(connections.indexOf(socket),1);
+        if(playerList[socket.id]){
+          delete playerList[socket.id];
+        }
     });
 });

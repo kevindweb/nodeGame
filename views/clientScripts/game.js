@@ -4,23 +4,13 @@ $(document).ready(function(){
   var ourUserId;
   var truthy = false; // this is a boolean that switches when we log in or die
   var x = document.body;
-  function colorTest(){
-  	var num1 = Math.floor(Math.random()*256);
-  	var num2 = Math.floor(Math.random()*256);
-  	var num3 = Math.floor(Math.random()*256);
-  	x.style = "background-color: rgb("+num1+","+num2+","+num3+")";
-    if(!truthy){
-      setTimeout(colorTest,2000);
-    } else{
-      x.style = "background-color: rgb(255,255,255)";
-    }
-  }
-  colorTest();
+  var ourTimer,setTimer;
+  // socket listeners
   // show current player count
   socket.on('playerCount',function(data){
     $("#playerCount").html(data.count);
   });
-  // socket listeners
+  // username was logged
   socket.on('usernameCreated',function(data){
     if(!data.error){
       document.getElementById("btn-input").disabled=false;
@@ -68,11 +58,50 @@ $(document).ready(function(){
     }
   });
   socket.on('blackout',function(data){
-    if(!truthy){ // if our game has started
+    if(truthy){ // if our game has started
       window.onPitchBlack(data.length);
     }
   });
+  socket.on('countDownCount',function(data){
+    $("#countdownSpan").html(data.time);
+    clientCountDown(data.time);
+  });
   // end of socket listeners
+  function colorTest(){
+  	var num1 = Math.floor(Math.random()*256);
+  	var num2 = Math.floor(Math.random()*256);
+  	var num3 = Math.floor(Math.random()*256);
+  	x.style = "background-color: rgb("+num1+","+num2+","+num3+")";
+    if(!truthy){
+      setTimeout(colorTest,2000);
+    } else{
+      x.style = "background-color: rgb(255,255,255)";
+    }
+  }
+  colorTest();
+  // showing countdown clock
+  function clientCountDown(timeLeft){
+    ourTimer = timeLeft;
+    setTimer = setInterval(clientCountDownStart,1000);
+  }
+  function clientCountDownStart(){
+    if(ourTimer=='1:00'){
+      ourTimer = 59;
+    } else if(ourTimer<=0){
+      clearInterval(setTimer);
+      setTimeout(function(){
+        ourTimer = '1:00';
+        setTimer = setInterval(clientCountDownStart,1000);
+      },3000);
+    } else{
+      ourTimer--;
+    }
+    $("#countdownSpan").html(ourTimer);
+  }
+  // adding points
+  window.updatePoints = function(currPoints){
+    $("#scoreSpan").html(currPoints);
+  }
   // assiging username
   $("#userName").keyup(function(e){
     if(e.keyCode == 13){
@@ -185,6 +214,17 @@ $(document).ready(function(){
   // player dies, data is reset
   window.playerDeath = function(){
     $("#canvasElement").hide('slow', function(){ $("#canvasElement").remove();});
+    var playAgain = document.createElement('button');
+    playAgain.id = "playAgainButton";
+    playAgain.style = "position: absolute; left: 100px; top:100px;";
+    $(playAgain)
+      .addClass("btn btn-primary btn-md")
+      .html("Play Again?");
+    $(document.body).append(playAgain);
     socket.emit('playerDeath');
+    $("playAgainButton").click(function(){
+      socket.emit('playAgain');
+      window.createCanvasElement();
+    });
   }
 });
