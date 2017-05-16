@@ -20,6 +20,9 @@ $(document).ready(function(){
           $('#minim_chat_window').removeClass('glyphicon-plus').addClass('glyphicon-minus');
       }
   });
+  $(document).on('click','.icon_close',function(){
+    $("#chatHolder").hide('slow', function(){ $("#chatHolder").remove();});
+  });
   $("#btn-input").keyup(function(e){
     if(e.keyCode == 13){
       $("#btn-chat").click();
