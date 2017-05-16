@@ -1,18 +1,18 @@
 {
   "name": "gravityfield",
-  "version": "1.0.0",
-  "description": "This is a game Kevin Deems and Neel Bhagwat are going to create with Node.js",
+  "version": "0.1.0",
+  "description": "This is a game Kevin Deems is creating with Node.js",
   "main": "./www/app.js",
   "scripts": {
-    "test": "npm start"
+    "test": "npm start",
+    "start":"node ./www/app.js"
   },
   "keywords": [
-    "Game",
-    "Gravity",
-    "Field",
+    "MMO",
+    "Gravity Field",
     "html5-css3-js"
   ],
-  "author": "Kevin Deems and Neel Bhagwat",
+  "author": "Kevin Deems",
   "license": "ISC",
   "dependencies": {
     "express": "^4.15.2",
@@ -20,5 +20,13 @@
     "nodemailer": "^4.0.1",
     "path": "^0.12.7",
     "socket.io": "^1.7.3"
-  }
+  },
+  "engines": {
+    "node": "6.9.2",
+    "npm":"3.10.9"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kevindweb/nodeGame"
+  },
 }
