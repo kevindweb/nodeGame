@@ -2,7 +2,7 @@ $(document).ready(function(){
   var socket = io();
   var ourUsername;
   var ourUserId;
-  var truthy = false;
+  var truthy = false; // this is a boolean that switches when we log in or die
   var x = document.body;
   function colorTest(){
   	var num1 = Math.floor(Math.random()*256);
@@ -11,6 +11,8 @@ $(document).ready(function(){
   	x.style = "background-color: rgb("+num1+","+num2+","+num3+")";
     if(!truthy){
       setTimeout(colorTest,2000);
+    } else{
+      x.style = "background-color: rgb(255,255,255)";
     }
   }
   colorTest();
@@ -27,6 +29,8 @@ $(document).ready(function(){
       ourUserId = data.id;
       window.ourUserId = ourUserId;
       document.getElementsByClassName("container")[0].style = 'opacity:0;';
+      $(".glyphicon-remove").attr("style","");
+      $("#playerInfo").attr("style","");
       setTimeout(function(){
         document.getElementsByClassName("container")[0].style = 'display:none;';
       },300);
@@ -63,6 +67,11 @@ $(document).ready(function(){
       $("#human").val(data.error);
     }
   });
+  socket.on('blackout',function(data){
+    if(!truthy){ // if our game has started
+      window.onPitchBlack(data.length);
+    }
+  });
   // end of socket listeners
   // assiging username
   $("#userName").keyup(function(e){
@@ -75,6 +84,10 @@ $(document).ready(function(){
     $("#userName").val("");
     if(!value.replace(/\s/g, '').length){
       $("#userName").attr("placeholder","real usrname pls");
+      return;
+    }
+    if(value.split("").length>12){
+      $("#userName").attr("placeholder","usrname < 10 pls");
     } else{
       ourUsername = value;
       window.ourUsername = ourUsername;
@@ -139,30 +152,6 @@ $(document).ready(function(){
   // dropdown slide up after click
   $('.dropdown').on('hide.bs.dropdown', function (e) {
       $(this).find('.dropdown-menu').first().stop(true, true).slideUp();
-  });
-  $(".panel-heading").click(function(e){
-    $(e.target).addClass("notCollapse");
-  });
-  $(".notCollapse").click(function(e){
-    $("#"+e.target.id).removeClass("notCollapse");
-  });
-  $(document).click(function (event) {
-       var clickover = $(event.target);
-       var opened = false;
-       for(i=1;i<4;i++){
-         if($("#"+i).hasClass("notCollapse")){
-           opened = true;
-           break;
-         }
-       }
-       if (opened === true && !clickover.hasClass("notCollapse")) {
-           $(".notCollapse").click();
-           for(i=1;i<4;i++){
-             if($("#"+i).hasClass("notCollapse")){
-               $("#"+i).removeClass("notCollapse");
-             }
-           }
-       }
   });
   // modal for the message button
   $("#human").keydown(function(){

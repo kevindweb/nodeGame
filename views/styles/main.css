@@ -2,9 +2,15 @@
   font-family: arcFont;
   src: url(/fonts/ArchitectsDaughter.ttf);
 }
+@font-face {
+  font-family: 'Glyphs';
+  src:  url(/fonts/glyphicons-halflings-regular.woff2) format('woff2'),
+        url(/fonts/glyphicons-halflings-regular.woff) format('woff'),
+        url(/fonts/glyphicons-halflings-regular.ttf) format('ttf');
+}
 body{
   font-family: arcFont;
-  margin: 0px;;
+  margin: 0px;
   padding: -5px;
   max-height: 100%;
   min-height: 100%;
@@ -14,6 +20,11 @@ body{
 canvas{
   transition: background-color 2s ease-in-out;
   font-family: arcFont;
+  position: absolute;
+  top: 20px;
+}
+.glyphicon {
+    font-family: 'Glyphs', sans-serif;
 }
 .btn{
   background-color:black;
@@ -27,11 +38,22 @@ canvas{
     padding: 25px;
     transition: all .3s ease-in-out;
 }
+#chatHolder{
+  height: 10px;
+  width: 10px;
+}
 #smallTitle{
   position:fixed;
   right:1px;
-  top: 1px;
+  top: -8px;
   font-size:15px;
+  color: black;
+}
+#playerInfo{
+  position: fixed;
+  left: 1px;
+  top: -8px;
+  font-size: 15px;
   color: black;
 }
 .form-login {

@@ -6,11 +6,15 @@
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
     <link rel="stylesheet" type="text/css" href="/styles/main.css"/>
     <link rel="stylesheet" type="text/css" href="/styles/chat.css"/>
+    <link rel="shortcut icon" href="/fonts/star.png" />
     <title>GravField</title>
   </head>
   <body>
     <div id="createUser">
       <h4 id="smallTitle">GravField</h4>
+      <div id="playerInfo" style="display:none;">
+          <h4>Score: <span id="scoreSpan">1235</span> Countdown: <span id="countdownSpan"></span></h4>
+      </div>
       <div class="container">
         <div class="row">
           <div class="col-md-offset-4 col-md-4">
@@ -44,6 +48,7 @@
                         </div>
                         <div class="col-md-4 col-xs-4" style="text-align: right;">
                             <a><span id="minim_chat_window" class="glyphicon glyphicon-minus icon_minim"></span></a>
+                            <a><span class="glyphicon glyphicon-remove icon_close" data-id="chat_window_1" style="display:none;"></span></a>
                         </div>
                     </div>
                     <div class="panel-body msg_container_base" id="messageBase">
@@ -126,8 +131,8 @@
                  <div class="col-md-12">
                    <div class="panel-group" id="dropDowns">
                      <div class="panel panel-default">
-                       <div class="panel-heading accordion-toggle collapsed question-toggle" data-toggle="collapse" data-parent="#dropDown" data-target="#gettingStarted">
-                         <h4 class="panel-title" id="1">
+                       <div id="two" class="panel-heading accordion-toggle collapsed question-toggle" data-toggle="collapse" data-parent="#dropDown" data-target="#gettingStarted">
+                         <h4 class="panel-title">
         								    <a class="ing">Getting Started</a>
         								 </h4>
                        </div>
@@ -143,8 +148,8 @@
         							 </div>
                      </div>
                      <div class="panel panel-default">
-                       <div class="panel-heading accordion-toggle collapsed question-toggle" data-toggle="collapse" data-parent="#dropDown" data-target="#otherInfo">
-                         <h4 class="panel-title" id="2">
+                       <div id="two" class="panel-heading accordion-toggle collapsed question-toggle" data-toggle="collapse" data-parent="#dropDown" data-target="#otherInfo">
+                         <h4 class="panel-title">
         							      <a class="ing">Other Information</a>
         								 </h4>
                        </div>
@@ -155,8 +160,8 @@
         							 </div>
                      </div>
                      <div class="panel panel-default">
-                       <div class="panel-heading collapsed" data-toggle="collapse" data-parent="#dropDown" data-target="#aboutUs">
-                         <h4 class="panel-title" id="3">
+                       <div id="three" class="panel-heading collapsed" data-toggle="collapse" data-parent="#dropDown" data-target="#aboutUs">
+                         <h4 class="panel-title">
                             <a class="ing">About Us</a>
                          </h4>
                        </div>
