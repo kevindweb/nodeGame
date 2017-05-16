@@ -4,15 +4,15 @@
   "description": "This is a game Kevin Deems and Neel Bhagwat are going to create with Node.js",
   "main": "./www/app.js",
   "scripts": {
-    "test": "npm start"
+    "test": "npm start",
+    "start":"node ./www/app.js"
   },
   "keywords": [
-    "Game",
-    "Gravity",
-    "Field",
+    "MMO",
+    "Gravity Field",
     "html5-css3-js"
   ],
-  "author": "Kevin Deems and Neel Bhagwat",
+  "author": "Kevin Deems",
   "license": "ISC",
   "dependencies": {
     "express": "^4.15.2",
@@ -20,5 +20,12 @@
     "nodemailer": "^4.0.1",
     "path": "^0.12.7",
     "socket.io": "^1.7.3"
-  }
+  },
+  "engines": {
+    "node": "4.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/heroku/node-js-sample"
+  },
 }
