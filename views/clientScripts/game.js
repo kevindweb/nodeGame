@@ -1,4 +1,5 @@
 $(document).ready(function(){
+
   var socket = io();
   var ourUsername;
   var ourUserId;
@@ -33,12 +34,6 @@ $(document).ready(function(){
       $("#userName").attr("placeholder",data.error);
     }
   });
-  socket.on('playerData',function(data){
-    window.xPos = data.x;
-    window.yPos = data.y;
-    // leaderboards
-    window.rankList = data.rankList;
-  });
   socket.on('newMessage',function(data){
     if(data.userName==ourUsername){
       receiveMyMessage(data.message,data.userName);
@@ -65,6 +60,9 @@ $(document).ready(function(){
   socket.on('countDownCount',function(data){
     $("#countdownSpan").html(data.time);
     clientCountDown(data.time);
+  });
+  socket.on('playerData',function(data){
+    window.updateAllPlayers(data);
   });
   // end of socket listeners
   function colorTest(){
@@ -127,8 +125,8 @@ $(document).ready(function(){
     socket.emit('usernameCreate',{username:name});
   }
   // getting data about the player
-  window.playerData = function(){
-    socket.emit('playerData');
+  window.emitData = function(us){
+    socket.emit('playerData',{you:us});
   }
   // sending message to server
   window.sendMessage = function(usrname,msg){
@@ -214,17 +212,13 @@ $(document).ready(function(){
   // player dies, data is reset
   window.playerDeath = function(){
     $("#canvasElement").hide('slow', function(){ $("#canvasElement").remove();});
-    var playAgain = document.createElement('button');
-    playAgain.id = "playAgainButton";
-    playAgain.style = "position: absolute; left: 100px; top:100px;";
-    $(playAgain)
-      .addClass("btn btn-primary btn-md")
-      .html("Play Again?");
-    $(document.body).append(playAgain);
+    clearInterval(setTimer);
+    window.updatePoints(0);
+    setTimeout(function(){
+      document.getElementsByClassName("container")[0].style = 'opacity:1;';
+      truthy = false;
+      colorTest();
+    },250);
     socket.emit('playerDeath');
-    $("playAgainButton").click(function(){
-      socket.emit('playAgain');
-      window.createCanvasElement();
-    });
   }
 });

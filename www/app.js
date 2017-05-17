@@ -12,7 +12,7 @@ var express = require('express'),
     server = app.listen(8080),
     io = require('socket.io')(server,{}),
     randomList=[],
-    playerList = [],
+    playerList = {},
     truthy = false,
     connections=[],
     countDown,
@@ -56,11 +56,12 @@ setTimerInterval();
 // socket commands
 io.sockets.on('connection', function (socket) {
     connections.push(socket);
-    var player = function(id){
+    var player = function(id,username){
       var self = {
         x:250,
         y:250,
         id:id,
+        username:socket.username
       };
       return self;
     }
@@ -71,28 +72,6 @@ io.sockets.on('connection', function (socket) {
       // sort playerList array by total score
       // return array of top ten players
     }
-    // sends a pitch black function to the sockets
-    // every 60 seconds, the screen will go black for 4 seconds
-    // function emitPitchBlack(){
-    //   if(connections.length>1){
-    //     setTimeout(function(){
-    //       // after 60 seconds, send pitch black
-    //       io.sockets.emit('pitchBlack');
-    //       setTimeout(function(){
-    //         // wait until pitch black is over, then start
-    //         // timer again
-    //         emitPitchBlack();
-    //       },4000);
-    //     },60*1000);
-    //   } else{
-    //     setTimeout(function(){
-    //       // if there are not enough players online to
-    //       // make it worth while, wait another minute and try again
-    //       emitPitchBlack();
-    //     },60*1000);
-    //   }
-    // }
-    // emitPitchBlack();
     // all socket listeners
     socket.on('sendMessage',function(data){
       io.sockets.emit('newMessage',{message:data.message,userName:socket.username})
@@ -112,7 +91,7 @@ io.sockets.on('connection', function (socket) {
       };
       getRandom();
       socket.id = id;
-      playerList[socket.id] = player(socket.id);
+      playerList[socket.id] = player(socket.id,socket.username);
       socket.emit('usernameCreated',{error:null,name:data.username,id:socket.id});
       socket.emit('countDownCount',{time:countDown});
     });
@@ -131,19 +110,15 @@ io.sockets.on('connection', function (socket) {
     });
     // request for player position and size, and game ranks
     socket.on('playerData',function(data){
-      if(rankList==null){
-        rankList = findRank();
-      } else if(data.score>rankList[9]){
-        rankList = findRank();
-      }
-      socket.emit('playerData',{x:socket.xPos,y:socket.yPos,rankList:rankList})
+      playerList[socket.id].x = data.you.x;
+      playerList[socket.id].y = data.you.y;
+      playerList[socket.id].width=data.you.width;
+      playerList[socket.id].score = data.you.score;
+      socket.emit('playerData',playerList);
     });
     // when a player dies
     socket.on('playerDeath',function(){
-      playerList.splice(playerList.indexOf(socket.id),1);
-    });
-    socket.on('playAgain',function(data){
-      playerList[socket.id] = player(socket.id);
+      delete playerList[socket.id];
     });
     socket.on('disconnect', function (){
         connections.splice(connections.indexOf(socket),1);

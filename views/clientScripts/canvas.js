@@ -1,6 +1,6 @@
 window.createCanvasElement = function(){
   // there will be a max size of player, but not max score
-  var c = document.createElement('canvas'),ctx,truthyColor = false,truthy=true,fList=[],myReq,myReqCount=0,points=0,spaceTruth=false,keyMap={},colorInterval,sizeN;
+  var c = document.createElement('canvas'),ctx,truthyColor = false,truthy=true,fList=[],myReq,myReqCount=0,points=0,spaceTruth=false,keyMap={},colorInterval,sizeN,allPlayers;
   // remember to set truthy equal to true when player loses
   c.id = 'canvasElement';
   c.width = $(window).width();
@@ -26,20 +26,11 @@ window.createCanvasElement = function(){
     y:40,
     spdX:20,
     spdY:20,
-    width:30,
-    height:30,
-    name:'P',
+    width:25,
+    height:25,
+    score:0
   }
   ctx.font = '40px Arial';
-  $(document).click(function(){
-    if(truthy){
-      truthy = false;
-      cancelAnimationFrame(myReq);
-    } else{
-      truthy = true;
-      myReq = requestAnimationFrame(updateNow);
-    }
-  });
   function floatingCall(){
     var random = Math.floor(Math.random()*c.width);
     var thisF = {
@@ -49,7 +40,6 @@ window.createCanvasElement = function(){
       spdY:-5,
       width:10,
       height:10,
-      name:'e',
       increment:1
     };
     fList.push(thisF);
@@ -77,18 +67,24 @@ window.createCanvasElement = function(){
     }
   }
   function update(q){
-    if(q.y>=c.height-q.height/3){
+    if(q.y>=(c.height+(q.height/2)-25)){
         truthy = false;
         cancelAnimationFrame(myReq);
         playerDeath();
         return;
     }
-    if(!spaceTruth){
-        q.y+=q.spdY/5;
-    }
+    // if(!spaceTruth){
+    //     q.y+=q.spdY/4;
+    // }
+    window.emitData(q);
     if(!truthyColor){
-      ctx.drawImage(document.getElementById("clientImage"),q.x-(q.height/2),q.y-(q.width/2),q.height,q.width);
+      for(var q in allPlayers){
+        ctx.drawImage(document.getElementById("clientImage"),allPlayers[q].x-(allPlayers[q].width/2),allPlayers[q].y-(allPlayers[q].width/2),allPlayers[q].width,allPlayers[q].width);
+      }
     }
+  }
+  window.updateAllPlayers = function(data){
+    allPlayers = data;
   }
   $(document).keydown(function(e){
     var keyCode = e.keyCode;
@@ -178,8 +174,9 @@ window.createCanvasElement = function(){
     };
     if(rect1.x<=rect2.x+rect2.width&&rect2.x<=rect1.x+rect1.width&&rect1.y<=rect2.y+rect2.height&&rect2.y<=rect1.y+rect1.height){
       points+=p1.increment;
-      if(points<=300){
-        animate(p1.increment/2);
+      player.score+=p1.increment;
+      if(points<=500){
+        animate(p1.increment/8);
       }
       window.updatePoints(points);
       return true;
@@ -207,8 +204,8 @@ window.createCanvasElement = function(){
   $(document.body).append(c).hide().show(800);
   // when player dies
   function playerLost(){
-    window.playerDeath(window.ourUserId);
     cancelAnimationFrame(myReq);
+    window.playerDeath(window.ourUserId);
   }
   function animate(size){
     if(size==1){
