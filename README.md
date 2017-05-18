@@ -19,7 +19,8 @@ nodemon
 ```
 Your local version of gravField should now be running on [localhost:5000](http://localhost:5000/).
 
-
+## Developers 
+The varDefine.json file will be useful to give context to the anyone looking at the code for the first time. 
 
 To be completed by late June 2017
 
