@@ -1,10 +1,15 @@
 window.createCanvasElement = function(){
   // there will be a max size of player, but not max score
-  var c = document.createElement('canvas'),ctx,truthyColor = false,truthy=true,fList=[],myReq,myReqCount=0,points=0,spaceTruth=false,keyMap={},colorInterval,sizeN,allPlayers;
+  var c = document.createElement('canvas'),ctx,truthyColor = false,truthy=true,fList=[],myReq,myReqCount=0,points=0,spaceTruth=false,keyMap={},colorInterval,allPlayers;
   // remember to set truthy equal to true when player loses
   c.id = 'canvasElement';
   c.width = $(window).width();
   c.height = $(window).height()-20;
+  if(c.width>5000||c.height>2000){
+    // if user screen is bigger than serverCanvas
+    alert('your screen is way too big to play. please decrease browser size.');
+    window.playerDeath(window.ourUserId);
+  }
   colorInterval = setInterval(colorTest,2000);
   function colorTest(){
     if(truthyColor){
@@ -49,9 +54,6 @@ window.createCanvasElement = function(){
     if(myReqCount%20===0){
       floatingCall();
     }
-    var l = fList.length;
-    // first for loop deletes dot if not on screen
-    // second moves the remaining dots in their prospective position
     var i=0;
     while(i<fList.length){
       if(fList[i].y<30||testCollision(fList[i],player)){

@@ -3,7 +3,7 @@ $(document).ready(function(){
   var socket = io();
   var ourUsername;
   var ourUserId;
-  var truthy = false; // this is a boolean that switches when we log in or die
+  var truthy = false;
   var x = document.body;
   var ourTimer,setTimer;
   // socket listeners

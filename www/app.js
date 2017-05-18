@@ -4,7 +4,6 @@ var express = require('express'),
     http = require('http'),
     nodemailer = require('nodemailer'),
     transporter = nodemailer.createTransport({service: 'gmail',auth: {user: 'gravfieldgame@gmail.com',pass: '!easy2Remember'}}),
-    server = http.Server(app),
     viewPath = path.join(__dirname+'/../views'),
     jsPath = path.join(__dirname+'/../views/clientScripts'),
     cssPath = path.join(__dirname+'/../views/styles'),
@@ -13,7 +12,6 @@ var express = require('express'),
     io = require('socket.io')(server,{}),
     randomList=[],
     playerList = {},
-    truthy = false,
     connections=[],
     countDown,
     intervals,
@@ -119,6 +117,7 @@ io.sockets.on('connection', function (socket) {
     // when a player dies
     socket.on('playerDeath',function(){
       delete playerList[socket.id];
+      randomList.splice(randomList.indexOf(socket.id),1);
     });
     socket.on('disconnect', function (){
         connections.splice(connections.indexOf(socket),1);

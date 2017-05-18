@@ -1,0 +1,74 @@
+{
+  "whatIsThisFile":"This file shows every folder, and every file inside that has a variable that needs to be understood for production.",
+  "root":{
+    "www":{
+      "app.js":{
+        "express":"express module does everything",
+        "app":"initializes express module",
+        "path":"path module links file paths together",
+        "http":"http module initializes server",
+        "nodemailer":"nodemailer sends contact emails",
+        "transporter":"initializes nodemailer constructor",
+        "viewPath":"initializes view folder path",
+        "jsPath":"initializes script folder path in viewPath",
+        "cssPath":"initializes styles folder path in viewPath",
+        "fontPath":"initializes fonts and images folder path in viewPath",
+        "server":"express function to start server",
+        "io":"init socket.io functions and calls",
+        "randomList":"array that holds the list of random player IDs",
+        "playerList":"object that holds the player data of each online user",
+        "connections":"list of users that connect to server, wether or not they are playing",
+        "countDown":"the amount of time before the pitch black countdown is over",
+        "intervals":"holds the js interval id for countdown timer",
+        "pitchBlackLength":"amount of time the user screen will be pitch black",
+        "player":"player initialization constructor",
+        "id":"player id once logged in - random number",
+        "myRandom":"separate random number created to get a unique user id",
+        "mailOptions":"object holding contact email information"
+      }
+    },
+    "views":{
+      "clientScripts":{
+        "game.js":{
+          "socket.io":"initializes client socket.io script for connection with server",
+          "ourUserName":"username made at login",
+          "ourUserId":"unique user id sent to server on canvas calls",
+          "truthy":"boolean that when false, game has not started - helps with color change interval",
+          "x":"shortened version of document.body used for DOM manipulation",
+          "ourTimer":"amount of time left in server countdown from 60 seconds to 0",
+          "setTimer":"interval in charge of changing the countdown client side",
+          "num1":"num1, num2, num3 are all random variables set to change the background-color every 2 seconds"
+        },
+        "canvas.js":{
+          "c":"shortened version of canvas element on page",
+          "ctx":"two-dimensional context of the canvas on client-side",
+          "truthyColor":"boolean that when true, background does not change color, and blackout has occurred for 3 seconds",
+          "truthy":"boolean that when true, game is still running, but when false, game is over",
+          "fList":"array holding all the star dust accumulating on the screen at one time",
+          "myReq":"id of the request animation frame for the user's game",
+          "myReqCount":"number of frames throughout the game life cycle - used to determine when to spawn a star dust",
+          "points":"amount of points one player has",
+          "spaceTruth":"boolean that when false, the player falls to the bottom of screen and dies, spaceTruth is true when player holds spacebar",
+          "keyMap":"holds the charcode of each pressed key - when a button keydown, charcode is true, keyup, charcode is false - used for making player move diagonal on keypress combinations",
+          "colorInterval":"interval id for the canvas background color change",
+          "allPlayers":"object holding all the players online sent from server as well as their data",
+          "num1":"changes background-color to a new shade every 2 seconds",
+          "player":"package containing information about our user",
+          "random":"random x position used to create a new star dust floating from the bottom to the top of screen",
+          "thisF":"constructor for the star dust position and size",
+          "keyCode":"the key code value sent when a player presses a certain button",
+          "animation":"interval defining how long it takes a player to increase by a given amount"
+        }
+      },
+      "fontsAndImages":{
+
+      },
+      "styles":{
+
+      },
+      "render":{
+
+      }
+    }
+  }
+}
