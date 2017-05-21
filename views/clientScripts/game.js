@@ -211,7 +211,7 @@ $(document).ready(function(){
   });
   // player dies, data is reset
   window.playerDeath = function(){
-    $("#canvasElement").hide('slow', function(){ $("#canvasElement").remove();});
+    $("#gameCanvas").hide(300);
     clearInterval(setTimer);
     window.updatePoints(0);
     setTimeout(function(){
