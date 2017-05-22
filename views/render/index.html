@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="/styles/bootstrap.min.css"/>
-    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/styles/font-awesome.min.css"/>
     <link rel="stylesheet" type="text/css" href="/styles/main.css"/>
     <link rel="stylesheet" type="text/css" href="/styles/chat.css"/>
     <link rel="shortcut icon" href="/fonts/star.png" />
@@ -11,7 +11,11 @@
   </head>
   <body>
     <div id="createUser">
-      <h4 id="smallTitle">GravField</h4>
+      <h4 id="smallTitle"><span><ul class="social-network social-circle">
+          <li><a href="http://facebook.com" class="icoFacebook" title="Facebook"><i class="fa fa-facebook"></i></a></li>
+          <li><a href="http://plus.google.com" class="icoGoogle" title="Google +"><i class="fa fa-google-plus"></i></a></li>
+          <li><a href="http://linkedin.com" class="icoLinkedin" title="Linkedin"><i class="fa fa-linkedin"></i></a></li>
+      </ul></span> GravField</h4>
       <div id="playerInfo" style="display:none;">
           <h4>Score: <span id="scoreSpan"></span> Countdown: <span id="countdownSpan"></span></h4>
       </div>
@@ -24,9 +28,9 @@
                 </br>
                 <h6><span id="playerCount"></span> player(s) online</h6>
                 <div class="wrapper">
-                <span class="group-btn">
-                    <a id="loginButton" class="btn btn-primary btn-md">login <i class="fa fa-sign-in"></i></a>
-                </span>
+                  <span class="group-btn">
+                      <a id="loginButton" class="btn btn-primary btn-md">login <i class="fa fa-sign-in"></i></a>
+                  </span>
                 </div>
               </div>
               <div class="loginAdditionals list-group">
@@ -124,7 +128,7 @@
           <div class="modal-content">
              <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title text-left" id="myModalLabel">?GravField?</h4>
+                <h4 class="modal-title text-left" id="myModalLabel">???</h4>
              </div>
              <div class="modal-body">
                <div class="row">
@@ -167,7 +171,7 @@
                        </div>
                        <div id="aboutUs" class="panel-collapse collapse" style="height: 0px;">
         									 <div class="panel-body">
-        											 <p>Kevin and Neel<br>We are just two programmers going into our freshmen year at George Washington University.</p>
+        											 <p>Kevin <br>is just an amateur programmer going into his freshmen year at George Washington University.</p>
         									 </div>
         							 </div>
                      </div>

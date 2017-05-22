@@ -22,12 +22,11 @@ app.set('views',viewPath);
 app.use('/scripts',express.static(jsPath));
 app.use('/styles',express.static(cssPath));
 app.use('/fonts',express.static(fontPath));
-app.use(function(req,res){
-  res.status(404).sendFile(path.join(__dirname+'/../views/render/error.html'));
-});
-
 app.get('/',function(req,res){
   res.sendFile(path.join(__dirname+'/../views/render/index.html'));
+});
+app.use(function(req,res){
+  res.status(404).sendFile(path.join(__dirname+'/../views/render/error.html'));
 });
 
 //countDown until blackout
