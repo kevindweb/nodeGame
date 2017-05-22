@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="/styles/main.css"/>
+    <link rel="stylesheet" type="text/css" href="/styles/error.css"/>
+    <link rel="shortcut icon" href="/fonts/star.png"/>
+    <title>GravField Error</title>
+  </head>
+  <body marginwidth="0" marginheight="0">
+      <div id="block_error">
+          <div>
+            <img id="spinningStar" alt="Rainbow Spinning Star" width="100" src="/fonts/spinningStar.png"/>
+            <h2>Error 404. Oops you've have encountered an error</h2>
+            <p>It appears as though you are on the wrong page here or it has been deleted.<br><br>If you were directed here, please click the link and then contact the owner of this game <a href="/" style="cursor:pointer;">gravField</a>.<br><br>We are looking forward to helping you make your experience as good as possible. Thanks</p>
+          </div>
+      </div>
+      <img id="brokenStar" src="/fonts/brokenStar.png" alt="Error Star" width="300"/>
+      <script>
+        var x = document.getElementById("spinningStar"),colorInterval,spinCount=0;
+        function rotate(deg){
+          x.style = "transform:rotate("+deg+"deg);webkit-transform:rotate("+deg+"deg);ms-transform:rotate("+deg+"deg);";
+        }
+        colorInterval = setInterval(function(){
+          if(spinCount>360){
+            spinCount=0;
+          }
+          rotate(spinCount);
+          spinCount+=2;
+        },10);
+      </script>
+  </body>
+</html>

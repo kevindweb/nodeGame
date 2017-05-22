@@ -127,18 +127,18 @@ window.createCanvasElement = function(){
       this.dustCall();
     }
     var i=0;
+    ctx.save();
+    ctx.fillStyle = 'yellow';
     while(i<fList.length){
       if(fList[i].y<30||testCollision(fList[i],myPlayer)){
         fList.splice(i,1);
       } else{
         fList[i].y+=fList[i].spdY;
-        ctx.save();
-        ctx.fillStyle = 'white';
         ctx.fillRect(fList[i].x-(fList[i].height/2)-xView,fList[i].y-(fList[i].width/2)-yView,fList[i].height,fList[i].width);
-        ctx.restore();
         i++;
       }
     }
+    ctx.restore();
   }
 
   starDust.prototype.dustCall = function(){
@@ -186,15 +186,15 @@ window.createCanvasElement = function(){
   }
 
   Player.prototype.update = function(){
-    if(myPlayer.y-myPlayer.width/2>=this.worldHeight){
+    if(myPlayer.y+myPlayer.height>=this.worldHeight){
         truthy = false;
         cancelAnimationFrame(myReq);
         playerLost();
         return;
     }
-    if(!keyMap[32]){
-      myPlayer.y+=this.speed;
-    }
+    // if(!keyMap[32]){
+    //   myPlayer.y+=this.speed;
+    // }
     if(keyMap[65]){
       if(keyMap[83]){
         this.diagonal('--',this.speed/2);
@@ -342,11 +342,6 @@ window.createCanvasElement = function(){
   });
   $(document).keyup(function(e){
     var keyCode = e.keyCode;
-    switch (keyCode){
-      case 32:
-        spaceTruth = false;
-        break;
-    }
     keyMap[keyCode] = false;
   });
   // test for collision between players/enemies

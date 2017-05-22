@@ -60,15 +60,9 @@
           "animation":"interval defining how long it takes a player to increase by a given amount"
         }
       },
-      "fontsAndImages":{
-
-      },
-      "styles":{
-
-      },
-      "render":{
-
-      }
+      "fontsAndImages":{},
+      "styles":{},
+      "render":{}
     }
   }
 }

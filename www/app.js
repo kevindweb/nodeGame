@@ -19,10 +19,12 @@ var express = require('express'),
 
 // initialize paths to scripts, fonts, and css
 app.set('views',viewPath);
-app.set('view engine','pug');
 app.use('/scripts',express.static(jsPath));
 app.use('/styles',express.static(cssPath));
 app.use('/fonts',express.static(fontPath));
+app.use(function(req,res){
+  res.status(404).sendFile(path.join(__dirname+'/../views/render/error.html'));
+});
 
 app.get('/',function(req,res){
   res.sendFile(path.join(__dirname+'/../views/render/index.html'));
