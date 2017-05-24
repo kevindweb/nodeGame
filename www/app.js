@@ -55,43 +55,42 @@ setTimerInterval();
 // socket commands
 io.sockets.on('connection', function (socket) {
     connections.push(socket);
-    var player = function(id,username){
-      var self = {
-        x:250,
-        y:250,
-        id:id,
-        username:socket.username
+    var player = function(username){
+      this.username = username;
+    }
+    player.prototype.object = function(id,username){
+      this.id = id;
+      this.username = username;
+      this.object = {
+        x:Math.floor((Math.random()*4500)+1),
+        y:Math.floor((Math.random()*1500)+1),
+        id:this.id,
+        username:this.username
       };
-      return self;
+      return this.object;
+    }
+    player.prototype.random = function(){
+      var myRandom = Math.random();
+      // if we already have this random id - choose another
+      if(randomList.indexOf(myRandom==-1)){
+        randomList.push(myRandom);
+        return myRandom;
+      } else{
+         this.random();
+      }
     }
     // default username is John Doe
     socket.username = 'John Doe';
     socket.emit('playerCount',{count:connections.length});
-    function findRank(){
-      // sort playerList array by total score
-      // return array of top ten players
-    }
+    var thisPlayer = new player(socket.username);
     // all socket listeners
     socket.on('sendMessage',function(data){
       io.sockets.emit('newMessage',{message:data.message,userName:socket.username})
     });
     socket.on('usernameCreate',function(data){
-      socket.username = data.username;
-      var id;
-      function getRandom(){
-      	var myRandom = Math.random();
-        // if we already have this random id - choose another
-      	if(randomList.indexOf(myRandom==-1)){
-      		randomList.push(myRandom);
-      		id = myRandom;
-      	} else{
-      	   getRandom();
-      	}
-      };
-      getRandom();
-      socket.id = id;
-      playerList[socket.id] = player(socket.id,socket.username);
-      socket.emit('usernameCreated',{error:null,name:data.username,id:socket.id});
+      socket.id = thisPlayer.random();
+      playerList[socket.id] = thisPlayer.object(socket.id,data.username);
+      socket.emit('usernameCreated',{error:null,name:data.username,id:thisPlayer.id});
       socket.emit('countDownCount',{time:countDown});
     });
     // when a user wants to send email
